@@ -1,0 +1,67 @@
+import time
+
+from Tasks.commonmethods import Common
+from selenium.webdriver.common.by import By
+
+class Featureclass:
+    def hotel_App(self):
+        c=Common()
+        driver=c.get_driver_chrome()
+        c.url("http://adactinhotelapp.com/")
+        time.sleep(5)
+        txt_username=driver.find_element(By.ID,"username")
+        c.send_values(txt_username,"kptdv1990")
+        txt_pwd=driver.find_element(By.ID,"password")
+        c.send_values(txt_pwd,"Password@123")
+        btn_login=driver.find_element(By.ID,"login")
+        c.btn_click(btn_login)
+        time.sleep(5)
+        #excel read-page1
+        sel_loc=driver.find_element(By.ID,"location")
+        c.send_values(sel_loc,c.read_data(6,1,'Sheet1'))
+        sel_hotels = driver.find_element(By.ID, "hotels")
+        c.send_values(sel_hotels, c.read_data(3,2,'Sheet1'))
+        sel_roomtype = driver.find_element(By.ID, "room_type")
+        c.send_values(sel_roomtype, c.read_data(4,3, 'Sheet1'))
+        sel_nofroom = driver.find_element(By.ID, "room_nos")
+        c.send_values(sel_nofroom, c.read_data(10,4, 'Sheet1'))
+        sel_adultperroom = driver.find_element(By.ID, "adult_room")
+        c.send_values(sel_adultperroom, c.read_data(5, 5, 'Sheet1'))
+        sel_childperroom = driver.find_element(By.ID, "child_room")
+        c.send_values(sel_childperroom, c.read_data(3,6, 'Sheet1'))
+        btn_search = driver.find_element(By.ID, "Submit")
+        c.btn_click(btn_search)
+        #page-2
+        time.sleep(2)
+        sel_radiobtn=driver.find_element(By.ID,"radiobutton_0")
+        c.btn_click(sel_radiobtn)
+        btn_continue = driver.find_element(By.ID, "continue")
+        c.btn_click(btn_continue)
+        #page-3
+        time.sleep(2)
+        first_name=driver.find_element(By.ID,"first_name")
+        c.send_values(first_name,"testusername")
+        last_name=driver.find_element(By.ID,"last_name")
+        c.send_values(last_name,"check")
+        address = driver.find_element(By.ID, "address")
+        c.send_values(address, "chennai")
+        card_num = driver.find_element(By.ID, "cc_num")
+        c.send_values(card_num, "3246733246733552")
+        card_type=driver.find_element(By.ID,"cc_type")
+        c.dropdown_selecbytext(card_type,"Other")
+        exp_date_month=driver.find_element(By.ID,"cc_exp_month")
+        c.dropdown_selecbytext(exp_date_month,"January")
+        exp_date_yr=driver.find_element(By.ID,"cc_exp_year")
+        c.dropdown_selecbytext(exp_date_yr,"2020")
+        txt_cvv=driver.find_element(By.ID,"cc_cvv")
+        c.send_values(txt_cvv,"753")
+        btn_booknow = driver.find_element(By.ID, "book_now")
+        c.btn_click(btn_booknow)
+        time.sleep(10)
+        #page-4
+        txt_orderno= driver.find_element(By.ID, "order_no")
+        p=txt_orderno.get_attribute("value")
+        print(p)
+
+f=Featureclass()
+f.hotel_App()
